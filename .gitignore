@@ -1,0 +1,10 @@
+*.log
+*.aux
+*.idx
+*.nav
+*.out
+*.pdf
+*.snm
+*.backup
+*.toc
+*~
