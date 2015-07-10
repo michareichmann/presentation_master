@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[9pt]{beamer}
 \usepackage[british]{babel}
 %\usepackage{beamerarticle}
 \usepackage[latin1]{inputenc}
@@ -6,6 +6,7 @@
 \usepackage{upgreek}
 \newcommand{\as}{\\[14pt]}
 \newcommand{\s}{\\[7pt]}
+\newcommand{\is}{\\[2pt]}
 \newcommand{\no}{\noindent}
 \newcommand{\ka}{\hspace*{0.5cm}}
 \newcommand{\ma}{\hspace*{1cm}}
@@ -70,24 +71,30 @@
 \subsection{The Silicon Pixel Detector}
 \begin{frame}
 	\frametitle{The Silicon Pixel Detector}
-	\begin{minipage}{4cm}
-		\begin{center}
+	\begin{itemize}
+		\item silicon sensor electrically connected to a read out chip (ROC) via Indium bump bonds
+		\item each silicon pixel connected to pixel unit cell (PUC) on the ROC
+		\item $4160$ pixels in $26$ double columns and $80$ rows
+		\item size of a pixel: $150\,\upmu$m $\times$ $100\,\upmu$m
+		\item size of the sensor: $7.8\,$mm $\times$ $8.0\,$mm (area: $62.4\,$mm$^{2}$) 
+	\end{itemize}
+	\begin{center}
+		\begin{minipage}{5cm}
+			\centering
 			\begin{figure}
-				\includegraphics<1>[height=4cm]{Pics/ROC1.png}
-				\caption{dimensions of the ROC}
+				\caption{dimensions of the ROC in mm}
+				\includegraphics[height=3cm]{Pics/ROC1}
 			\end{figure}
-		\end{center}
-	\end{minipage}
-	\hspace*{2pt}
-	\begin{minipage}{6.5cm}
-		\begin{itemize}
-			\item silicon sensor electrically connected to a read out chip (ROC) via Indium bump bonds
-			\item each silicon pixel connected to pixel unit cell (PUC) on the ROC
-			\item $4160$ pixels in $26$ double columns and $80$ rows
-			\item size of a pixel: $150\,\upmu$m $\times$ $100\,\upmu$m
-			\item size of the sensor: $7.8\,$mm $\times$ $8.0\,$mm (area: $62.4\,$mm$^{2}$) 
-		\end{itemize}
-	\end{minipage}\no\s
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{5cm}
+			\centering
+			\begin{figure}
+				\caption{analogue ROC}
+				\includegraphics[height=3cm]{Pics/ROC0}
+			\end{figure}
+		\end{minipage}\no\s
+	\end{center}
 \end{frame}
 % ============================
 % THE SILICON PLANE
@@ -95,14 +102,26 @@
 \subsection{The Silicon Plane}
 \begin{frame}
 	\frametitle{The Silicon Plane}
-	\begin{itemize}
-		\item stable mounting framework for a single pixel detector
-		\item amplifying circuit
-		\item fast-OR differential LEMO output for pixel hits
-		\item no signal termination
-		\item bias voltage LEMO connector for the sensors
-		\item 48 pin male connector on the back end
-	\end{itemize}
+	\begin{center}
+		\begin{minipage}{4.5cm}
+			\centering
+			\begin{figure}
+				\caption{analogue silcon plane}\vspace*{-5pt}
+				\includegraphics[width=4.2cm]{Pics/Plane}
+			\end{figure}
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{6cm}
+			\begin{itemize}
+				\item stable mounting framework for a single pixel detector [00]
+				\item amplifying circuit [04]
+				\item fast-OR differential LEMO output for pixel hits [02]
+				\item no signal termination
+				\item bias voltage LEMO connector for the sensors [01]
+				\item 48 pin male connector on the back end [03]
+			\end{itemize}
+		\end{minipage}\no\s
+	\end{center}
 \end{frame}
 % ============================
 % THE OLD ANALOGUE TELESCOPE
@@ -110,59 +129,141 @@
 \subsection{The Analogue Telescope}
 \begin{frame}
 	\frametitle{The Analogue Telescope}
-	TODO: include picture of the telescope 
 	\begin{itemize}
-		\item main frame with six female 48 pin connectors for the planes
-		\item one male connector to a test-board (mainly built for an analogue test-board)
+		\item main frame with six female 48 pin connectors for the planes [02]
+		\item one male connector to a test-board (mainly built for an analogue test-board) [01]
 		\item main operation mode: two planes in the front, two in the back to put a target in between
 		\item two token jumper for the two empty connectors
 		\item framework to hold the telescope and the target
 	\end{itemize}
+	\begin{center}
+		\begin{minipage}{4cm}
+			\centering
+			\begin{figure}
+				\caption{analogue telescope}
+				\includegraphics[height=3cm]{Pics/Telescope}
+			\end{figure}
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{2.5cm}
+			\centering
+			\begin{figure}
+				\caption{jumper}
+				\includegraphics[width=2.5cm]{Pics/TokenJumper}
+			\end{figure}
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{4cm}
+			\centering
+			\begin{figure}
+				\caption{mount for telescope}
+				\includegraphics[width=3.5cm]{Pics/mounting}
+			\end{figure}
+		\end{minipage}\no\s
+	\end{center}
 \end{frame}
-% ============================
-% THE NEW TELESCOPE
-% ============================
-\subsection{The New Telescope}\begin{frame}TODO\end{frame}
 % ============================
 % THE DIGITAL TESTBOARD
 % ============================
 \subsection{The Digital Test-Board (DTB)}
 \begin{frame}
 	\frametitle{The Digital Test-Board}
-	TODO: include picture 
 	\begin{itemize}
 		\item FPGA including soft Token Bit Manager (TBM) emulator
-		\item two digital and two analogue LEMO outputs which can be assigned to various internal signals
-		\item USB and Ethernet outlet to connect to a computer
-		\item connector to ROC
+		\item two digital and two analogue differential LEMO outputs which can be assigned to various internal signals
+		\item clock and external trigger input
+		\item connectors: USB, Ethernet, low voltage and  female scsi 
+		\item LEMO hig voltage input 
 	\end{itemize}
+	\begin{center}
+		\begin{minipage}{5cm}
+			\centering
+			\begin{figure}
+				\caption{DTB top}
+				\includegraphics[width=4.5cm]{Pics/DTB}
+			\end{figure}
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{5cm}
+			\centering
+			\begin{figure}
+				\caption{DTB front and back}
+				\includegraphics[width=4.5cm]{Pics/DTB-Sides}
+			\end{figure}
+		\end{minipage}\no\s
+	\end{center}
 \end{frame}
 
+% % ============================
+% % THE NEW TELESCOPE
+% % ============================
+% \subsection{The New Telescope}\begin{frame}TODO\end{frame}
 
 % ====================================================================================
 % SOFTWARE
 % ====================================================================================
-\section{Software}
-\begin{frame}TODO\end{frame}
-\subsection{pXar}
-\subsection{Python Command Line Interface (CLI)}
-\subsection{EUDAQ}
-\subsection{Keithley Current}
-\subsection{EUDAQ Log Reader}
-\subsection{High Voltage Client}
-\subsection{Tracking}
-
+% \section{Software}
+% \begin{frame}TODO\end{frame}
+% \subsection{pXar}
+% \subsection{Python Command Line Interface (CLI)}
+% \subsection{EUDAQ}
+% \subsection{Keithley Current}
+% \subsection{EUDAQ Log Reader}
+% \subsection{High Voltage Client}
+% \subsection{Tracking}
+% 
 % ====================================================================================
 % EXPERIMENTS AND MEASUREMENTS
 % ====================================================================================
 \section{Experiments \& Measurements}
-\begin{frame}TODO\end{frame}
-\subsection{DTB Readout of the Analogue Planes}
-\subsection{Study of the Fast-Or Signals}
-\subsection{DESY Test-Beam}
-\subsection{PSI Test-Beam}
-\begin{frame}TODO\end{frame}
-
+% ============================
+% DIGITAL READ OUT OF ANALOGUE PLANES
+% ============================
+\subsection{Digital Readout of the Analogue Planes}
+\begin{frame}
+	\frametitle{Digital Readout of the Analogue Planes}
+	\begin{itemize}
+		\item analogue planes built for readout with the Analogue Test Board (ATB)
+		\item problem: limited buffer size thus limited amount of time for a single run
+		\item idea: use pXar and the DTB for the readout
+		\item pXar plug-in by Simon Spannagel can decode raw data from analogue ROC
+		\begin{itemize}
+			\item uses decoder according to the ROC type set in the configuration file\is
+			\item all additional DAC parameters that are not used for the digital ROC appended to the pXar dictionary
+		\end{itemize}
+		\item analogue signal of the ROC converted by the ADC of the DTB
+		\item additional timing settings for the DTB to determine the exact start and end point of the signal set in the test board configuration file
+		\item goal: set the timing s.t. the first value is ultrablack and the last either the pulse height of the last pixel hit or the last DAC if no pixel was hit (or too many for that matter)
+	\end{itemize}
+\end{frame}
+% new frame =========================================
+\begin{frame}
+	\frametitle{How to find the correct settings}
+	\begin{itemize}
+		\item connect the analogue ROC to the DTB (special adapter needed)
+		\item start the pXar CLI
+		\item check if the ROC draws reasonable currents:
+		\begin{itemize}
+			\item getTBia\is
+			\item getTBid
+		\end{itemize}
+		\item check weather the analogue current changes by changing the changing the analogue voltage
+		\begin{itemize}
+			\item setDAC vana \textit{\flq value\frq}
+		\end{itemize}
+		\item if the ROC is not responding $\rightarrow$ wrong sda settings
+	\end{itemize}
+\end{frame}
+% \subsection{Study of the Fast-Or Signals}
+% \subsection{DESY Test-Beam}
+% \subsection{PSI Test-Beam}
+% \begin{frame}TODO\end{frame}
+\begin{frame}
+	\frametitle{}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
 %==================================================================================================================================================
 %===============================================SYNCHROTRON========================================================================================
 %==================================================================================================================================================
