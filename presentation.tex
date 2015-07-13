@@ -1,3 +1,4 @@
+% BEGIN PREAMBEL
 \documentclass[9pt]{beamer}
 \usepackage[british]{babel}
 %\usepackage{beamerarticle}
@@ -15,11 +16,13 @@
 \newcommand{\re}{\right|}
 \newcommand{\const}{\text{const.}}
 \newcommand{\z}{\text}
+\newcommand{\terminal}[1]{\colorbox{black}{\textcolor{white}{{\fontfamily{phv}\selectfont #1}}}}
 \usepackage{pgfpages}
 \usepackage[version=3]{mhchem}
 \usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{multicol}
+\usepackage{xcolor}
 % \usepackage{uarial}
 \usetheme{Boadilla}
 \usecolortheme{beaver}
@@ -32,6 +35,7 @@
 \title[Master Thesis (Status)]{Status of the master thesis}
 \author[M. Reichmann]{Michael Reichmann}
 \institute[\textbf{\textit{ETH}}\scalebox{.6}{\textit{Z\"{u}rich}}]{Swiss Federal Institute of Technology Zurich / Low Energy Particle Physics}
+% END PREAMBEL
 
 % ============================
 % START
@@ -241,7 +245,10 @@
 	\frametitle{How to find the correct settings}
 	\begin{itemize}
 		\item connect the analogue ROC to the DTB (special adapter needed)
-		\item start the pXar CLI
+		\item start my pXar CLI with a set of working DAC parameters
+		\begin{itemize}
+			\item ./myscript -d \textit{\flq DAC directory\frq}
+		\end{itemize}
 		\item check if the ROC draws reasonable currents:
 		\begin{itemize}
 			\item getTBia\is
@@ -251,13 +258,44 @@
 		\begin{itemize}
 			\item setDAC vana \textit{\flq value\frq}
 		\end{itemize}
-		\item if the ROC is not responding $\rightarrow$ wrong sda settings
+		\item if the ROC is not responding i.e. the current is not changing $\rightarrow$ wrong sda settings
+		\item inspect the outcome of a single activated pixel
+		\begin{itemize}
+			\item maskAllPixels 1 
+			\item maskPixel 5 12 0
+			\item daqStart
+			\item daqTrigger \textit{\flq n\frq} 500
+			\item daqGetRawEvent
+			\item daqStop
+		\end{itemize}
 	\end{itemize}
 \end{frame}
+% new frame =========================================
+\begin{frame}
+	\frametitle{Fixing the delays}
+	\begin{itemize}
+		\item expected signal for single ROC without Token Bit Manager (TBM)
+	\end{itemize}
+	\begin{figure}
+		\includegraphics[height=2.5cm]{Pics/levels}
+		\caption{example level scheme for pixel 5 12 }
+	\end{figure}
+	\begin{itemize}
+		\item example output of the CLI: 
+		\begin{itemize}
+			\item \terminal{[-196, 0, 97, -54, 57, 106, 164, 212, 91]}
+		\end{itemize}
+
+	\end{itemize}
+
+
+\end{frame}
+
 % \subsection{Study of the Fast-Or Signals}
 % \subsection{DESY Test-Beam}
 % \subsection{PSI Test-Beam}
 % \begin{frame}TODO\end{frame}
+% new frame =========================================
 \begin{frame}
 	\frametitle{}
 	\begin{itemize}
