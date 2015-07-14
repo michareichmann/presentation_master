@@ -16,13 +16,15 @@
 \newcommand{\re}{\right|}
 \newcommand{\const}{\text{const.}}
 \newcommand{\z}{\text}
-\newcommand{\terminal}[1]{\colorbox{black}{\textcolor{white}{{\fontfamily{phv}\selectfont #1}}}}
+\newcommand{\terminal}[1]{\colorbox{black}{\textcolor{white}{{\fontfamily{phv}\selectfont \scriptsize{#1}}}}}
+\newcommand{\plugin}[1]{\textit{\flq#1\frq}}
 \usepackage{pgfpages}
 \usepackage[version=3]{mhchem}
 \usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{multicol}
 \usepackage{xcolor}
+\usepackage{wrapfig}
 % \usepackage{uarial}
 \usetheme{Boadilla}
 \usecolortheme{beaver}
@@ -272,25 +274,78 @@
 \end{frame}
 % new frame =========================================
 \begin{frame}
-	\frametitle{Fixing the delays}
-	\begin{itemize}
-		\item expected signal for single ROC without Token Bit Manager (TBM)
-	\end{itemize}
-	\begin{figure}
-		\includegraphics[height=2.5cm]{Pics/levels}
-		\caption{example level scheme for pixel 5 12 }
-	\end{figure}
-	\begin{itemize}
-		\item example output of the CLI: 
-		\begin{itemize}
-			\item \terminal{[-196, 0, 97, -54, 57, 106, 164, 212, 91]}
-		\end{itemize}
-
-	\end{itemize}
-
-
+	\frametitle{Analogue levels}
+	\begin{center}
+		\begin{minipage}{6cm}
+			\begin{itemize}
+				\item example output of the CLI with correct time settings: 
+				\begin{itemize}
+					\item \terminal{[-196, 0, 97, -54, 57, 106, 164, 212, 91]}
+				\end{itemize}
+				\item first three words: ROC header
+				\begin{itemize}
+					\item ultrablack, black, last DAC
+				\end{itemize}
+				\item next five words decoded pixel address
+				\item last word: pulse height of the the pixel hit
+				\item if there is only a header and no pixel information:
+				\begin{itemize}
+					\item no pixel or too many pixels activated
+					\item wrong DAC vthreshcomp, caldel
+					\item wrong delay of the calibrate pulse of the pattern generator
+				\end{itemize}
+			\end{itemize}
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{4.5cm}
+			\begin{figure}
+				\includegraphics[width=4.5cm]{Pics/levels}
+				\caption{example level scheme for pixel 5 12 }
+			\end{figure}
+		\end{minipage}\no\s
+	\end{center}
 \end{frame}
-
+% new frame =========================================
+\begin{frame}
+	\frametitle{Adjusting the delays}
+	\begin{center}
+		\begin{minipage}{7cm}
+			\begin{itemize}
+				\item example output of the CLI with incorrect time settings: 
+				\begin{itemize}
+					\item \terminal{[-196, 0, 97, -54, 57, 106, 164, 212, 91]}
+				\end{itemize}
+				\item important delays:
+				\begin{itemize}
+					\item tindelay:  start sampling \plugin{n} clock cycles after sending the token in (tin)
+					\item toutdelay: stop sampling \plugin{n} clock cycles after receiving the token out (tout)
+				\end{itemize}
+				\item implementing function \textit{\textcolor{red}{findAnalogueTBDelays}} for CLI to find the delays automatically:
+				\begin{itemize}
+					\item mask all pixels
+					\item start with a low value for tindelay and increase it until the first word is lesser than $-100$ $\rightarrow$ ultrablack
+					\item start with high value for toutdelay and decrease it until the last word is higher than $20$ $\rightarrow$ last DAC
+					\item save and set the values
+				\end{itemize}
+			\end{itemize}
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{3.5cm}
+			\begin{figure}
+				\includegraphics[width=3.2cm]{Pics/levels}
+				\caption{output of findAnalogueTBDelays}
+			\end{figure}
+		\end{minipage}\no\s
+	\end{center}
+\end{frame}
+% new frame =========================================
+\begin{frame}
+	\frametitle{Sampling point of the ADC}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+%==============
 % \subsection{Study of the Fast-Or Signals}
 % \subsection{DESY Test-Beam}
 % \subsection{PSI Test-Beam}
