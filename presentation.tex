@@ -341,8 +341,94 @@
 % new frame =========================================
 \begin{frame}
 	\frametitle{Sampling point of the ADC}
+	\begin{center}
+		\begin{minipage}{5.5cm}
+			\begin{itemize}
+				\item analogue levels need some time within a clock cycle to reach the correct value
+				\item need to adjust the clock phase (DTB delay in ns)
+				\item sampling at the wrong phase will change the level depending on the previous or following one
+			\end{itemize}
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{5.2cm}
+			\begin{figure}
+				\includegraphics[width=4.9cm]{Pics/splits}
+				\vspace*{-2pt}
+				\caption{theoretical level split}
+			\end{figure}
+		\end{minipage}\no\s
+	\end{center}
+\end{frame}
+% new frame =========================================
+\begin{frame}
+	\frametitle{Finding the clock delay}
+	\begin{center}
+		\begin{minipage}{5.5cm}
+			\begin{itemize}
+				\item activate six pixels where the levels go from $0\rightarrow$ fixed level $\rightarrow0$ \dots $5\rightarrow$ fixed level $\rightarrow5$
+				\item activate the pixel 15/59 (1 1 1 1 1) to measure the black level
+				\item black level important for decoding
+				\item vary the clock phase from in between one cycle (0-24) 
+				\item measure the values for the chosen fixed level
+				\item calculate the averaged deviation from the mean value 
+				\item choose the phase with minimal deviation
+			\end{itemize}
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{5.2cm}
+			\begin{figure}
+				\includegraphics[width=4.9cm]{Pics/splits}
+				\vspace*{-2pt}
+				\caption{real level split}
+			\end{figure}
+		\end{minipage}\no\s
+	\end{center}
+\end{frame}
+% new frame =========================================
+\begin{frame}
+	\begin{center}
+		\begin{minipage}{5.5cm}
+			\begin{itemize}
+				\item might ended up in another clk cycle $\rightarrow$ run findAnalogueTBDelays again
+				\item both telescopes slightly decrease the black level in the ROC header s.t. the decoding can go awry
+				\item can be corrected either by adding the difference directly in the decoding
+				\item or changing the DAC phscale
+				\item implemented function to optimize for the black level spread
+			\end{itemize}
+		\end{minipage}
+		\hspace*{2pt}
+		\begin{minipage}{5.2cm}
+			\begin{figure}
+				\includegraphics[width=4.9cm]{Pics/splits}
+				\vspace*{-2pt}
+				\caption{address levels}
+			\end{figure}
+		\end{minipage}\no\s
+	\end{center}
+\end{frame} 
+% ============================
+% TRACKING TELESCOPE
+% ============================
+\subsection{Tracking Telescope}
+\begin{frame}
+	\frametitle{Tracking Telescope}
 	\begin{itemize}
-		\item 
+		\item using n analogue planes of the PLT as tracking device
+		\item analyse real data e.g. from the PSI test beam
+		\item data acquired with the EUDAQ framework 
+		\item requirement: root file converted with the DRS4 converter of EUDAQ
+		\begin{itemize}
+			\item \dots/\textit{eudaq-directory}/bin/Converter.exe -t drs4tree \textit{\flq binary data file \frq}
+		\end{itemize}
+		\item required branches: event\_number, time, plane, col, row, adc, charge
+		\item using the the raw pixel data to align the planes, find tracks and put out some other useful information as follows
+		\item adds the following branches to the root file:
+		\begin{itemize}
+			\item for tracking: slope\_x/y, chi2, chi2\_x/y, n\_tracks\is
+			\item for track through the diamond: diam1/2\_track\_x/y, dist\_to\_dia1/2
+			\item others: n\_tracks, charge\_all\_ROC1/\dots/n, hit\_plane\_bits
+		\end{itemize}
+		\item creates various plots %TODO add link where all the plots are shown
 	\end{itemize}
 \end{frame}
 %==============
