@@ -341,23 +341,16 @@
 % new frame =========================================
 \begin{frame}
 	\frametitle{Sampling point of the ADC}
-	\begin{center}
-		\begin{minipage}{5.5cm}
-			\begin{itemize}
-				\item analogue levels need some time within a clock cycle to reach the correct value
-				\item need to adjust the clock phase (DTB delay in ns)
-				\item sampling at the wrong phase will change the level depending on the previous or following one
-			\end{itemize}
-		\end{minipage}
-		\hspace*{2pt}
-		\begin{minipage}{5.2cm}
-			\begin{figure}
-				\includegraphics[width=4.9cm]{Pics/splits}
-				\vspace*{-2pt}
-				\caption{theoretical level split}
-			\end{figure}
-		\end{minipage}\no\s
-	\end{center}
+	\begin{figure}
+		\includegraphics[width=6cm]{Pics/clk_delay}
+		\vspace*{-2pt}
+		\caption{theoretical level split}
+	\end{figure}
+	\begin{itemize}
+		\item analogue levels need some time within a clock cycle to reach the correct value
+		\item need to adjust the clock phase (DTB delay in ns)
+		\item sampling at the wrong phase will change the level depending on the previous or following one
+	\end{itemize}
 \end{frame}
 % new frame =========================================
 \begin{frame}
@@ -399,7 +392,7 @@
 		\hspace*{2pt}
 		\begin{minipage}{5.2cm}
 			\begin{figure}
-				\includegraphics[width=4.9cm]{Pics/splits}
+				\includegraphics[width=4.9cm]{Pics/address_lvls}
 				\vspace*{-2pt}
 				\caption{address levels}
 			\end{figure}
@@ -411,7 +404,7 @@
 % ============================
 \subsection{Tracking Telescope}
 \begin{frame}
-	\frametitle{Tracking Telescope}
+	\frametitle{Tracking telescope}
 	\begin{itemize}
 		\item using n analogue planes of the PLT as tracking device
 		\item analyse real data e.g. from the PSI test beam
@@ -429,6 +422,30 @@
 			\item others: n\_tracks, charge\_all\_ROC1/\dots/n, hit\_plane\_bits
 		\end{itemize}
 		\item creates various plots %TODO add link where all the plots are shown
+	\end{itemize}
+\end{frame}
+% new frame =========================================
+\begin{frame}
+	\frametitle{Hit plane bits}
+	\begin{figure}
+		\includegraphics[height= 3cm]{Pics/hitplanebits}
+	\end{figure}
+	\begin{itemize}
+		\item $2^{n}$ possibilities to hit \textit{n} planes
+		\item information which configuration was hit how many times
+		\item one hit in $0110$ means that there was one single event where ROC 1 \& 2 were hit and ROC 0 \& 3 where not hit
+		\item allows to cut on special configurations (e.g. only two middle planes hit)
+	\end{itemize}
+\end{frame}
+% new frame =========================================
+\begin{frame}
+	\frametitle{Tracking}
+	\begin{itemize}
+		\item software runs an alignment algorithm and puts the centre of the mask as centre of the x-y-plane
+		\item all length units are in centimetres 
+		\item tracks are only calculated if there is one cluster in every plane
+		\item tracks as linear fits through every cluster centre
+		\item maximum slope of the tracks $=\arctan \left(  \dfrac{size\ of\ a\ ROC}{max\ length\ telescope} \right)$ $=3.7^{\circ}$ in horizontal direction and $3.8^{\circ}$ in vertical direction 
 	\end{itemize}
 \end{frame}
 %==============
